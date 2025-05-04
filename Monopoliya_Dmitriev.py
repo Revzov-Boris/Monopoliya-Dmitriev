@@ -437,15 +437,11 @@ def make_verbs_list(situaciya, indx): # situaciya: 1 - старт, ход ещё
 
 print("\tЭто монополия Дмитриева! В правилах разберёшься сам, в этом городе важен фарт и умение пользоваться деньгами!!!\n")
 start_cash = 10_000 # стартовая сумма у игроков
-count_bots = ""
-while (count_bots not in ("0", "1", "2", "3")):
-    count_bots = input("Введите кол-во ботов (от 0 до 3): ")
 count_players = ""
-while (count_players not in [str(i) for i in range(1, 5+1 - int(count_bots))]):
-    count_players = input("Введите кол-во игрунов (от 1 до " + str(5 - int(count_bots)) + "): ")
+while (count_players not in [str(i) for i in range(1, 5+1)]):
+    count_players = input("Введите кол-во игрунов (от 1 до " + str(5) + "): ")
 flag = True
 players = []
-bots_name = ["Бот-словоглот", "Ботус", "the La Бот"] # имена которые могут получить боты
 while flag: # пока не введены корректные имена
     players = []
     fishki = ["☻", "♥", "♦", "♣", "♫"]
@@ -459,13 +455,10 @@ while flag: # пока не введены корректные имена
          #          имя       фишка          цвет         бюджет    ходов    координата   состояние(в игре, в тюрьме, банкрот)
          #           0          1              2             3        4           5            6
         players.append(player)                                 #в тюрьме осталось
-    if len([i[0] for i in players]) == len(set([i[0] for i in players])) and ("" not in [i[0] for i in players]) and (not(any([i[0] in bots_name for i in players]))):
+    if len([i[0] for i in players]) == len(set([i[0] for i in players])) and ("" not in [i[0] for i in players]):
         flag = False
     else:
         print("Ваши имена совпадают, придумайте другие!")
-for i in range(int(count_bots)): # добавляем ботов
-    bot = [bots_name[i], fishki.pop(0), colors.pop(0), start_cash, 0, 0, "в игре"]
-    players.append(bot)
 shuffle(players) # делаем случайным порядок ходов
 
 for player in players:
